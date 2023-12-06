@@ -5,6 +5,6 @@ public interface BorrowAble {
     boolean isAvailable();
     Object getBorrower();
     String getNazov();
-    String getPocetStran();
+    String getPocetStranAleboFilmov();
     
 }

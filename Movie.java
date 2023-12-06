@@ -6,6 +6,7 @@ class Movie extends Item implements BorrowAble {
         this.movieLength = movieLength;
     }
 
+
     public String identifikujSa() {
         return "Movie - " + getNazov();
     }
@@ -28,5 +29,14 @@ class Movie extends Item implements BorrowAble {
 
     public boolean isAvailable() {
         return !isBorrowed();
+    }
+
+    @Override
+    public String getPocetStranAleboFilmov() {
+        if (movieLength > 1) {
+            return movieLength + " hodin";
+        } else {
+            return movieLength + " hodina";
+        }
     }
 }

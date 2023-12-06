@@ -31,4 +31,15 @@ public class Book extends Item implements BorrowAble
     {
         return !isBorrowed();
     }
+
+    @Override
+    public String getPocetStranAleboFilmov() {
+
+        if (numberOfPages > 1) {
+            return numberOfPages + " stran";
+        } else {
+            return numberOfPages + " strana";
+        }
+        
+    }
 }

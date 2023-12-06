@@ -1,7 +1,9 @@
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Library
+public class Library implements Serializable
 {
     private Item[] poleItemov;
     private String nazov;
@@ -14,16 +16,21 @@ public class Library
     }
     
        
-    public boolean borrowItem(String borrower, String nazov)
-    {
-        for(int i = 0; i < poleItemov.length; i++)
-        {
-            if(poleItemov[i].getNazov().equals(nazov))
-            {
-                if(poleItemov[i] instanceof BorrowAble)
-                {
-                    BorrowAble b = (BorrowAble) poleItemov[i];
-                    b.borrowItem(borrower);
+    public boolean borrowItem(String borrower, String nazov) {
+        for (Item item : poleItemov) {
+            if (item.getNazov().equals(nazov)) {
+                if (item instanceof Book) {
+                    ((Book) item).borrowItem(borrower);
+                    return true;
+                } else if (item instanceof EBook) {
+                    ((EBook) item).borrowItem(borrower);
+                    return true;
+                } else if (item instanceof Newspapers) {
+                    System.out.println("Newspapers cannot be borrowed.");
+                    return false;
+                } else {
+                    System.out.println("Unrecognized item type: " + item.getNazov());
+                    return false;
                 }
             }
         }
@@ -98,7 +105,7 @@ public class Library
             if (item instanceof BorrowAble) {
                 BorrowAble borrowableItem = (BorrowAble) item;
                 if (borrowableItem.isAvailable()) {
-                    System.out.println(borrowableItem.getNazov() + " is available");
+                    System.out.println(borrowableItem.getNazov() + " is available" + "with " + borrowableItem.getPocetStranAleboFilmov() + " pages || filmov");
                 } else {
                     System.out.println(borrowableItem.getNazov() + " is not available");
                 }
@@ -106,6 +113,26 @@ public class Library
         }
     }
 
+
+    public List<Item> getAvailableItems() {
+        List<Item> availableItems = new ArrayList<>();
+        for (Item item : poleItemov) {
+            if (item instanceof BorrowAble) {
+                BorrowAble borrowableItem = (BorrowAble) item;
+                if (borrowableItem.isAvailable()) {
+                    availableItems.add(item);
+                }
+            }
+        }
+        return availableItems;
+    }
+
+
+    
+   
+
+
+   
 
 
 }

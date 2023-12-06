@@ -1,4 +1,6 @@
-public abstract class Item {
+import java.io.Serializable;
+
+public abstract class Item implements Serializable {
     private int id;
     private String nazov;
     private boolean borrowed;
